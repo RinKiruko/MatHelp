@@ -1,0 +1,100 @@
+{% extends 'CRUD/list/base.html' %}
+{% load static %}
+{% block filters %}
+    <div class="filters mb-4">
+        <form class="row justify-content-center align-items-center">
+            <div class="col-10 shadow rounded p-3">
+                <div class="row">
+                    <div class="col-8 input-group mb-3">
+                        <input type="text" class="form-control" name="q" placeholder="Поиск"
+                               aria-label="поиск по имени" value="{{ request.GET.q }}">
+                    </div>
+                    <div class="col-4 input-group mb-3">
+                        <select class="custom-select" id="inputStudyLevelSelect" name="group">
+                            {% for group_id, group_name in filter.form.fields.group.choices %}
+                                <option value="{{ group_id }}" {% if group_id == request.GET.group %}
+                                        selected{% endif %}>{{ group_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="group-picker">Группа</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 input-group mb-3">
+                        <select class="custom-select" id="inputStudyLevelSelect" name="study_level">
+                            <option value=""></option>
+                            {% for choice_name, choice_value in filters_data.study_levels %}
+                                <option value="{{ choice_name }}" {% if choice_name == request.GET.study_level %}
+                                        selected{% endif %}>{{ choice_value }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="inputStudyLevelSelect">Ступень</label>
+                        </div>
+                    </div>
+                    <div class="col-4 input-group mb-3">
+                        <select class="custom-select" id="inputCourseSelect" name="course">
+                            <option value=""></option>
+                            <option value="1" {% if request.GET.course == '1' %}
+                                    selected{% endif %}>1
+                            </option>
+                            <option value="2" {% if request.GET.course == '2' %}
+                                    selected{% endif %}>2
+                            </option>
+                            <option value="3" {% if request.GET.course == '3' %}
+                                    selected{% endif %}>3
+                            </option>
+                            <option value="4" {% if request.GET.course == '4' %}
+                                    selected{% endif %}>4
+                            </option>
+                        </select>
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="inputCourseSelect">Курс</label>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <input type="submit" class="btn btn-block btn-primary mr-2" value="Найти">
+                    </div>
+                    <div class="col-2">
+                        <a href="{% url 'main:student-list' %}" class="btn btn-block btn-secondary">Очистить</a>
+                    </div>
+                </div>
+                <div class="row">
+                </div>
+            </div>
+            <div class="col">
+                <div class="row justify-content-center">
+                    <a href="{{ meta_context.create_url }}" class="btn btn-success"><img
+                            src="{% static 'images/icons/add.png' %}" width="40px" height="40px" alt=""></a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block card_object %}
+    <div class="row">
+        <div class="col">
+            <div class="card-body">
+                <h4>
+                    {{ object.first_name }} {{ object.last_name }}
+                </h4>
+                <div class="card-text">
+                    <a href="{% url 'main:student-list' %}?group={{ object.group.id }}"
+                       class="student-group btn btn-outline-info">#{{ object.group.name }}</a>
+                    <a href="{% url 'main:student-list' %}?course={{ object.group.course }}"
+                       class="student-course btn btn-outline-info">#{{ object.group.course }} Курс</a>
+                    <a href="{% url 'main:student-list' %}?study_level={{ object.group.studying_type }}"
+                       class="student-study-type btn btn-outline-info">#{{ object.group.get_studying_type }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-auto row align-items-center mr-2">
+            <a href="{% url 'main:student-list' %}?student={{ object.id }}"
+               class="btn btn-outline-info font-weight-bold">
+                {{ object.statements.count }} <i class="material-icons">assignment</i>
+            </a>
+        </div>
+    </div>
+{% endblock %}

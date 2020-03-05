@@ -1,0 +1,14 @@
+body {
+  /* Margin bottom by footer height */
+  padding-top: 100px;
+  margin-bottom: 60px;
+  height: 100%;
+}
+
+.card-title {
+  color: darkslategray;
+}
+
+.material-icons {
+  font-size: 1rem;
+}
