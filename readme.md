@@ -2,7 +2,7 @@
 Application for automation material help distribution business processes.
 
 ##Install dependencies
-`conda create --name <env> --file <this file>`
+`conda create --name MatHelp --file requirements.txt`
 ##Add variable to ENV
 `Dev=True` <br>
 server use this for `settings.DEBUG`
