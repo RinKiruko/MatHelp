@@ -1,0 +1,70 @@
+{% extends 'CRUD/list/base.html' %}
+{% load static %}
+{% block filters %}
+    <div class="filters mb-4">
+        <form class="row justify-content-center align-items-center">
+            <div class="col-10 shadow rounded p-3">
+                <div class="row">
+                    <div class="col-5 input-group mb-3">
+                        <input type="text" class="form-control" name="group" placeholder="ФИО студента"
+                               aria-label="поиск по имени" value="{{ request.GET.student }}">
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="group-picker">Студент</label>
+                        </div>
+                    </div>
+                    <div class="col-5 input-group mb-3">
+                        <input type="text" class="form-control" name="group" placeholder="Название группы"
+                               aria-label="поиск по имени" value="{{ request.GET.group }}">
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="group-picker">Группа</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 input-group mb-3">
+                        <select class="custom-select" id="inputCategorySelect" name="category">
+                            {% for category_id, category_name in filter.form.fields.category.choices %}
+                                <option value="{{ category_id }}" {% if category_id|stringformat:'i' == request.GET.group %}
+                                        selected{% endif %}>{{ category_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="group-picker">Категория</label>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <input type="submit" class="btn btn-block btn-primary mr-2" value="Найти">
+                    </div>
+                    <div class="col-2">
+                        <a href="{% url 'main:statement-list' %}" class="btn btn-block btn-secondary">Очистить</a>
+                    </div>
+                </div>
+                <div class="row">
+                </div>
+            </div>
+            <div class="col">
+                <div class="row justify-content-center">
+                    <a href="{{ meta_context.create_url }}" class="btn btn-success"><img
+                            src="{% static 'images/icons/add.png' %}" width="40px" height="40px" alt=""></a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block card_object %}
+    <div class="row">
+        <div class="col">
+            <div class="card-body">
+                <h4>
+                    {{ object.student.first_name }} {{ object.student.last_name }} от {{ object.application_date }}
+                </h4>
+                <div class="card-text">
+                    <a href="{% url 'main:statement-list' %}?group={{ object.student.group.id }}"
+                       class="student-group btn btn-outline-info">#{{ object.student.group.name }}</a>
+                    <a href="{% url 'main:statement-list' %}?study_level={{ object.student.group.studying_type }}"
+                       class="student-study-type btn btn-outline-info">#{{ object.student.group.get_studying_type }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
