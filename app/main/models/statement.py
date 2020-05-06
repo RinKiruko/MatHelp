@@ -1,13 +1,11 @@
 from django.db import models
 from django.urls import reverse
 
-from app.main.models.mixins import TemplateModelMetaInfoMixin
+from main.models.mixins import TemplateModelMetaInfoMixin
 
 
 class Statement(TemplateModelMetaInfoMixin, models.Model):
     requested_payment = models.DecimalField(verbose_name='Запрашиваемая сумма', max_digits=7, decimal_places=2)
-    payed_payment = models.DecimalField(verbose_name='Сумма выплаты', null=True, max_digits=7, decimal_places=2)
-    application_date = models.DateField(verbose_name='Дата подачи')
 
     statement_category = models.ForeignKey('main.StatementCategory', related_name='statements',
                                            on_delete=models.PROTECT, verbose_name='Категория')

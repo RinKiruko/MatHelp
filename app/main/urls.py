@@ -2,6 +2,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
+from main.views import StatementCategoryListView, StatementCategoryCreateView, StatementCategoryCreateAddAnotherView, \
+    StatementCategoryUpdateView, StatementCategoryDeleteView, StatementListView, StatementCreateView, \
+    StatementCreateAddAnotherView, StatementUpdateView, StatementDeleteView
+
 app_name = "main"
 urlpatterns = [
     # Categories

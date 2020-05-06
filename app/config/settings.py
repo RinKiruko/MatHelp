@@ -73,7 +73,7 @@ DATABASES = {
 
 AUTH_USER_MODEL = 'main.User'
 
-LOGIN_REDIRECT_URL = reverse_lazy('main:student-list')
+LOGIN_REDIRECT_URL = reverse_lazy('main:statement-list')
 LOGOUT_REDIRECT_URL = reverse_lazy('login')
 
 AUTH_PASSWORD_VALIDATORS = [

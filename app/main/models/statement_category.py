@@ -1,14 +1,14 @@
 from django.db import models
 from django.urls import reverse
 
-from app.main.models.mixins import TemplateModelMetaInfoMixin
+from main.models.mixins import TemplateModelMetaInfoMixin
 
 
 class StatementCategory(TemplateModelMetaInfoMixin, models.Model):
     title = models.CharField(verbose_name='Название категории', max_length=50)
     legal_number = models.CharField(verbose_name='Юридический номер', max_length=50)
     maximum_payment = models.DecimalField(verbose_name='Максимальная выплата', max_digits=7, decimal_places=2)
-
+    necessarily_paying = models.BooleanField(verbose_name='Обязательна к выплате', default=False)
     weight = models.FloatField(verbose_name='Приоритет')
 
     # Template meta settings ###

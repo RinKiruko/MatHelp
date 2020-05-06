@@ -8,7 +8,7 @@ from django.views.generic.edit import BaseDeleteView
 from django_filters import FilterSet
 from django_filters.views import FilterView
 
-from app.main.views.mixins import AddErrorClassMixin, SuccessMessageDeleteMixin
+from main.views.mixins import AddErrorClassMixin, SuccessMessageDeleteMixin
 
 __all__ = [
     'list_view_factory',

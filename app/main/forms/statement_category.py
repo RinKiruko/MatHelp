@@ -1,5 +1,5 @@
-from app.main.forms.base import BaseModelForm
-from app.main.models import StatementCategory
+from main.forms.base import BaseModelForm
+from main.models import StatementCategory
 
 
 class StatementCategoryForm(BaseModelForm):
