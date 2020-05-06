@@ -31,17 +31,11 @@
                 <li class="nav-item {% if request.path == '/statements/list/' %} active {% endif %} ">
                     <a class="nav-link " href="{% url 'main:statement-list' %}">Заявления</a>
                 </li>
-                <li class="nav-item {% if request.path == '/students/list/' %} active {% endif %}">
-                    <a class="nav-link " href="{% url 'main:student-list' %}">Студенты</a>
-                </li>
-                <li class="nav-item {% if request.path == '/groups/list/' %} active {% endif %}">
-                    <a class="nav-link " href="{% url 'main:group-list' %}">Группы</a>
-                </li>
                 <li class="nav-item {% if request.path == '/statementcategories/list/' %} active {% endif %}">
                     <a class="nav-link " href="{% url 'main:statementcategory-list' %}">Категории</a>
                 </li>
-                <li class="nav-item {% if request.path == '/statements/list/' %} active {% endif %}">
-                    <a href="" class="btn btn-outline-success">Помочь</a>
+                <li class="nav-item {% if request.path == 'distribute/settings/' %} active {% endif %}">
+                    <a href="{% url 'distribution:settings' %}" class="btn btn-outline-success">Распределение</a>
                 </li>
             </ul>
             <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Выйти</a>

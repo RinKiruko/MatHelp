@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 from main.models.mixins import TemplateModelMetaInfoMixin
 
@@ -9,6 +10,8 @@ class Statement(TemplateModelMetaInfoMixin, models.Model):
 
     statement_category = models.ForeignKey('main.StatementCategory', related_name='statements',
                                            on_delete=models.PROTECT, verbose_name='Категория')
+
+    application_date = models.DateField(verbose_name='Дата Подачи', default=timezone.now)
 
     student_first_name = models.CharField(verbose_name='Имя', max_length=50)
     student_last_name = models.CharField(verbose_name='Фамилия', max_length=50)
@@ -45,4 +48,4 @@ class Statement(TemplateModelMetaInfoMixin, models.Model):
         return reverse('main:statement-create')
 
     def __str__(self):
-        return f'{self.student} от {self.application_date.strftime("%d.%m.%Y")}'
+        return f'{self.student_first_name} {self.student_last_name} от {self.application_date.strftime("%d.%m.%Y")}'
