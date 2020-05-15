@@ -2,13 +2,13 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-from main.models.mixins import TemplateModelMetaInfoMixin
+from crud.models.mixins import TemplateModelMetaInfoMixin
 
 
 class Statement(TemplateModelMetaInfoMixin, models.Model):
     requested_payment = models.DecimalField(verbose_name='Запрашиваемая сумма', max_digits=7, decimal_places=2)
 
-    statement_category = models.ForeignKey('main.StatementCategory', related_name='statements',
+    statement_category = models.ForeignKey('crud.StatementCategory', related_name='statements',
                                            on_delete=models.PROTECT, verbose_name='Категория')
 
     application_date = models.DateField(verbose_name='Дата Подачи', default=timezone.now)

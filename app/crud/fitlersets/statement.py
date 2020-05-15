@@ -1,7 +1,7 @@
 import django_filters
 from django.db.models import QuerySet, Q
 
-from main.models import StatementCategory
+from crud.models import StatementCategory
 
 
 class StatementFilter(django_filters.FilterSet):

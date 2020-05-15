@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-from main.models.mixins import TemplateModelMetaInfoMixin
+from crud.models.mixins import TemplateModelMetaInfoMixin
 
 
 class StatementCategory(TemplateModelMetaInfoMixin, models.Model):

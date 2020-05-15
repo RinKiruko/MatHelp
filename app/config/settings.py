@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',
+    'crud',
     'django_filters',
     'debug_toolbar',
 ]
@@ -71,7 +71,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'main.User'
+AUTH_USER_MODEL = 'crud.User'
 
 LOGIN_REDIRECT_URL = reverse_lazy('main:statement-list')
 LOGOUT_REDIRECT_URL = reverse_lazy('login')

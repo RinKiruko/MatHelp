@@ -2,4 +2,4 @@
 #
 #
 # class MainConfig(AppConfig):
-#     name = 'main'
+#     name = 'crud'

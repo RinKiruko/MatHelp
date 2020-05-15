@@ -3,7 +3,7 @@
 import django.contrib.auth.models
 from django.db import migrations, models
 import django.db.models.deletion
-import main.models.mixins.template_model_meta
+import crud.models.mixins.template_model_meta
 
 
 class Migration(migrations.Migration):
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Категория заявления',
                 'verbose_name_plural': 'Категории заявлений',
             },
-            bases=(main.models.mixins.template_model_meta.TemplateModelMetaInfoMixin, models.Model),
+            bases=(crud.models.mixins.template_model_meta.TemplateModelMetaInfoMixin, models.Model),
         ),
         migrations.CreateModel(
             name='Statement',
@@ -55,12 +55,12 @@ class Migration(migrations.Migration):
                 ('student_last_name', models.CharField(max_length=50, verbose_name='Фамилия')),
                 ('student_middle_name', models.CharField(max_length=50, verbose_name='Отчество')),
                 ('student_group', models.CharField(max_length=50, verbose_name='Группа')),
-                ('statement_category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='statements', to='main.StatementCategory', verbose_name='Категория')),
+                ('statement_category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='statements', to='crud.StatementCategory', verbose_name='Категория')),
             ],
             options={
                 'verbose_name': 'Заявление',
                 'verbose_name_plural': 'Заявления',
             },
-            bases=(main.models.mixins.template_model_meta.TemplateModelMetaInfoMixin, models.Model),
+            bases=(crud.models.mixins.template_model_meta.TemplateModelMetaInfoMixin, models.Model),
         ),
     ]

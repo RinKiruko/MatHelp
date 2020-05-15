@@ -1,7 +1,7 @@
-from main.forms import *
-from main.fitlersets import StatementCategoryFilter, StatementFilter
-from main.models import StatementCategory, Statement
-from main.views.factories import list_view_factory, update_view_factory, create_view_factory, \
+from crud.forms import *
+from crud.fitlersets import StatementCategoryFilter, StatementFilter
+from crud.models import StatementCategory, Statement
+from crud.views.factories import list_view_factory, update_view_factory, create_view_factory, \
     create_add_another_view_factory, delete_view_factory
 
 __all__ = (

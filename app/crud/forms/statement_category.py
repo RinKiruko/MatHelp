@@ -1,5 +1,5 @@
-from main.forms.base import BaseModelForm
-from main.models import StatementCategory
+from crud.forms.base import BaseModelForm
+from crud.models import StatementCategory
 
 
 class StatementCategoryForm(BaseModelForm):

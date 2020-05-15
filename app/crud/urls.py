@@ -2,11 +2,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from main.views import StatementCategoryListView, StatementCategoryCreateView, StatementCategoryCreateAddAnotherView, \
+from crud.views import StatementCategoryListView, StatementCategoryCreateView, StatementCategoryCreateAddAnotherView, \
     StatementCategoryUpdateView, StatementCategoryDeleteView, StatementListView, StatementCreateView, \
     StatementCreateAddAnotherView, StatementUpdateView, StatementDeleteView
 
-app_name = "main"
+app_name = "crud"
 urlpatterns = [
     # Categories
     path('statementcategories/list/', StatementCategoryListView.as_view(), name='statementcategory-list'),
