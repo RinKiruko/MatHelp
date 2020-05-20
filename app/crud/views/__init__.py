@@ -40,10 +40,9 @@ StatementCategoryDeleteView = delete_view_factory(StatementCategory)
 ################################################
 # CRUD for statement model #####################
 ################################################
-_statement_optimized_queryset = Statement.objects.prefetch_related(
-    'student', 'statement_category', 'student__group',
-)
+_statement_optimized_queryset = Statement.objects.select_related('statement_category',)
 _statement_filters_data = {}
+
 StatementListView = list_view_factory(Statement, _statement_optimized_queryset,
                                       StatementFilter, _statement_filters_data,
                                       'CRUD/list/statement.html')
