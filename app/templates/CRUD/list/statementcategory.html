@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="col-auto row align-items-center mr-2">
-            <a href="{% url 'main:statement-list' %}?category={{ object.id }}"
+            <a href="{% url 'crud:statement-list' %}?category={{ object.id }}"
                class="btn btn-outline-info font-weight-bold">
                 {{ object.statements.count }} <i class="material-icons"></i>
             </a>

@@ -7,9 +7,12 @@ from crud.models.mixins import TemplateModelMetaInfoMixin
 class StatementCategory(TemplateModelMetaInfoMixin, models.Model):
     title = models.CharField(verbose_name='Название категории', max_length=50)
     legal_number = models.CharField(verbose_name='Юридический номер', max_length=50)
-    maximum_payment = models.DecimalField(verbose_name='Максимальная выплата', max_digits=7, decimal_places=2)
+    maximum_payment = models.DecimalField(verbose_name='Максимальная выплата', max_digits=7, decimal_places=2,
+                                          blank=True, null=True)
+    # TODO Replace with periodic payment
     necessarily_paying = models.BooleanField(verbose_name='Обязательна к выплате', default=False)
-    weight = models.FloatField(verbose_name='Приоритет')
+    
+    weight = models.FloatField(verbose_name='Приоритет', default=1.0)
 
     # Template meta settings ###
     update_header = 'Изменить данные о категории'
@@ -23,15 +26,15 @@ class StatementCategory(TemplateModelMetaInfoMixin, models.Model):
 
     @property
     def update_url(self):
-        return reverse('main:statementcategory-update', kwargs={'id': self.id})
+        return reverse('crud:statementcategory-update', kwargs={'id': self.id})
 
     @property
     def delete_url(self):
-        return reverse('main:statementcategory-delete', kwargs={'id': self.id})
+        return reverse('crud:statementcategory-delete', kwargs={'id': self.id})
 
     @property
     def create_url(self):
-        return reverse('main:statementcategory-create')
+        return reverse('crud:statementcategory-create')
 
     ############################
 

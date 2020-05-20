@@ -19,7 +19,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'crud',
+    'distribution',
+
     'django_filters',
     'debug_toolbar',
 ]
@@ -73,7 +76,7 @@ DATABASES = {
 
 AUTH_USER_MODEL = 'crud.User'
 
-LOGIN_REDIRECT_URL = reverse_lazy('main:statement-list')
+LOGIN_REDIRECT_URL = reverse_lazy('crud:statement-list')
 LOGOUT_REDIRECT_URL = reverse_lazy('login')
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -160,3 +163,6 @@ RENDER_PANELS = True
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: True
 }
+
+INITIAL_DATASETS_PATH = os.path.join(BASE_DIR, 'distribution/static/datasets.pickle')
+INITIAL_WEIGHTS_PATH = os.path.join(BASE_DIR, 'crud/static/weights.pickle')

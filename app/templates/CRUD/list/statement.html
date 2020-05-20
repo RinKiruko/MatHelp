@@ -37,7 +37,7 @@
                         <input type="submit" class="btn btn-block btn-primary mr-2" value="Найти">
                     </div>
                     <div class="col-2">
-                        <a href="{% url 'main:statement-list' %}" class="btn btn-block btn-secondary">Очистить</a>
+                        <a href="{% url 'crud:statement-list' %}" class="btn btn-block btn-secondary">Очистить</a>
                     </div>
                 </div>
                 <div class="row">
@@ -61,7 +61,7 @@
                     {{ object.student_first_name }} {{ object.student_last_name }} от {{ object.application_date }}
                 </h4>
                 <div class="card-text">
-                    <a href="{% url 'main:statement-list' %}?group={{ object.student_group }}"
+                    <a href="{% url 'crud:statement-list' %}?group={{ object.student_group }}"
                        class="student-group btn btn-outline-info">#{{ object.student_group }}</a>
                 </div>
             </div>

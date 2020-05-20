@@ -1,15 +1,16 @@
+import math
 import pickle
 
 from django.views.generic import View
-
 from openpyxl import load_workbook
+
+from distribution.utils import get_criterion, normalize
 
 
 class Distribute(View):
     def get(self, request, *args, **kwargs):
-        # %%
-
-
+        dataset = pickle.load(open('./datasets/datasets.pickle', 'rb'))
+        weights = pickle.load(open('./datasets/weights.pickle', 'rb'))
 
         wb = load_workbook(filename="./datasets/test.xlsx")
         ws = wb['Data']
@@ -17,15 +18,6 @@ class Distribute(View):
         payments = {row[0].value: row[1].value for row in ws.rows if row[0].value is not None}
         budget = 407500
         wb.close()
-
-        normalize = lambda z, seq: (z - min(seq)) / (max(seq) - min(seq))
-
-        get_criterion = lambda category_metrics: category_metrics['count'] * 6 + category_metrics['weight'] + \
-                                                 category_metrics['proportion']
-
-        # %%
-
-        import math
 
         avg_proportion = {}
         for category in weights:
@@ -54,11 +46,8 @@ class Distribute(View):
             for category in payments
         }
 
-        # %%
         distributions = {
             category: {
                 'received': budget * (estimated[category] / sum(estimated.values())),
             } for category, count in payments.items()
         }
-
-        print()

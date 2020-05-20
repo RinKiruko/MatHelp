@@ -29,12 +29,12 @@
             </span>
             <ul class="navbar-nav nav-pills mr-auto">
                 <li class="nav-item {% if request.path == '/statements/list/' %} active {% endif %} ">
-                    <a class="nav-link " href="{% url 'main:statement-list' %}">Заявления</a>
+                    <a class="nav-link " href="{% url 'crud:statement-list' %}">Заявления</a>
                 </li>
                 <li class="nav-item {% if request.path == '/statementcategories/list/' %} active {% endif %}">
-                    <a class="nav-link " href="{% url 'main:statementcategory-list' %}">Категории</a>
+                    <a class="nav-link " href="{% url 'crud:statementcategory-list' %}">Категории</a>
                 </li>
-                <li class="nav-item {% if request.path == 'distribute/settings/' %} active {% endif %}">
+                <li class="nav-item {% if request.path == 'distribution/settings/' %} active {% endif %}">
                     <a href="{% url 'distribution:settings' %}" class="btn btn-outline-success">Распределение</a>
                 </li>
             </ul>

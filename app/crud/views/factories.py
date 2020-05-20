@@ -33,7 +33,7 @@ def list_view_factory(model_class: type(Model), initial_queryset: QuerySet = Non
             'extra_context': {
                 'meta_context': {
                     'list_header': model_class.list_header,
-                    'create_url': reverse_lazy(f'main:{model_class.__name__.lower()}-create'),
+                    'create_url': reverse_lazy(f'crud:{model_class.__name__.lower()}-create'),
                     'delete_modal_title': model_class.delete_modal_title
                 },
                 'filters_data': filters_data,
@@ -54,11 +54,12 @@ def update_view_factory(model_class: type(Model), form_class: type(Form), templa
             'template_name': template_name,
             'form_class': form_class,
             'pk_url_kwarg': 'id',
-            'get_success_url': lambda self: reverse(f'main:{model_class.__name__.lower()}-update',
-                                                    kwargs={'id': self.object.id}),
+            'success_url': reverse_lazy(f'crud:{model_class.__name__.lower()}-list'),
+
+            # TODO replace with extra_context from ContextMixin
             'meta_context': {
                 'update_header': model_class.create_header,
-                'update_url': reverse_lazy(f'main:{model_class.__name__.lower()}-update'),
+                'update_url': reverse_lazy(f'crud:{model_class.__name__.lower()}-update'),
             },
         }
 
@@ -74,14 +75,14 @@ def create_view_factory(model_class: type(Model), form_class: type(Form), templa
             'model': model_class,
             'template_name': template_name,
             'form_class': form_class,
-            'get_success_url': lambda self: reverse(f'main:{model_class.__name__.lower()}-update',
+            'get_success_url': lambda self: reverse(f'crud:{model_class.__name__.lower()}-update',
                                                     kwargs={'id': self.object.id}),
             'success_message': model_class.success_message_create,
             'extra_context': {
                 'meta_context': {
                     'create_header': model_class.create_header,
-                    'create_url': reverse_lazy(f'main:{model_class.__name__.lower()}-create'),
-                    'create_add_another_url': reverse_lazy(f'main:{model_class.__name__.lower()}-create-add-another'),
+                    'create_url': reverse_lazy(f'crud:{model_class.__name__.lower()}-create'),
+                    'create_add_another_url': reverse_lazy(f'crud:{model_class.__name__.lower()}-create-add-another'),
                 },
             },
         }
@@ -93,7 +94,7 @@ def create_add_another_view_factory(model_class: type(Model), form_class: type(F
     create_add_another_view = create_view_factory(model_class, form_class, template_name)
     setattr(create_add_another_view, 'get_success_url',
             lambda self: reverse(
-                f'main:{model_class.__name__.lower()}-create',
+                f'crud:{model_class.__name__.lower()}-create',
             ))
     return create_add_another_view
 
@@ -106,7 +107,7 @@ def delete_view_factory(model_class: type(Model)):
             'model': model_class,
             'success_message': model_class.success_message_delete,
             'pk_url_kwarg': 'id',
-            'success_url': reverse_lazy(f'main:{model_class.__name__.lower()}-list'),
+            'success_url': reverse_lazy(f'crud:{model_class.__name__.lower()}-list'),
         }
     )
     return delete_model_view

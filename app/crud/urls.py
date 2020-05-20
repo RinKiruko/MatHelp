@@ -1,10 +1,6 @@
-from django.conf import settings
-from django.conf.urls.static import static
 from django.urls import path
 
-from crud.views import StatementCategoryListView, StatementCategoryCreateView, StatementCategoryCreateAddAnotherView, \
-    StatementCategoryUpdateView, StatementCategoryDeleteView, StatementListView, StatementCreateView, \
-    StatementCreateAddAnotherView, StatementUpdateView, StatementDeleteView
+from crud.views import *
 
 app_name = "crud"
 urlpatterns = [
@@ -27,9 +23,4 @@ urlpatterns = [
          name='statement-update'),
     path('statements/delete/<int:id>/', StatementDeleteView.as_view(),
          name='statement-delete'),
-
-    # path('distribute/',)
 ]
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

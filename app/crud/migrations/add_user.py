@@ -13,8 +13,6 @@ def add_user(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-    initial = True
-
     dependencies = [
         ('crud', '0002_auto_20200416_1723')
     ]

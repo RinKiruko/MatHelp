@@ -37,15 +37,15 @@ class Statement(TemplateModelMetaInfoMixin, models.Model):
 
     @property
     def update_url(self):
-        return reverse('main:statement-update', kwargs={'id': self.id})
+        return reverse('crud:statement-update', kwargs={'id': self.id})
 
     @property
     def delete_url(self):
-        return reverse('main:statement-delete', kwargs={'id': self.id})
+        return reverse('crud:statement-delete', kwargs={'id': self.id})
 
     @property
     def create_url(self):
-        return reverse('main:statement-create')
+        return reverse('crud:statement-create')
 
     def __str__(self):
         return f'{self.student_first_name} {self.student_last_name} от {self.application_date.strftime("%d.%m.%Y")}'

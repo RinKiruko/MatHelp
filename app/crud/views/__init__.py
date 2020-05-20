@@ -1,8 +1,7 @@
 from crud.forms import *
 from crud.fitlersets import StatementCategoryFilter, StatementFilter
 from crud.models import StatementCategory, Statement
-from crud.views.factories import list_view_factory, update_view_factory, create_view_factory, \
-    create_add_another_view_factory, delete_view_factory
+from crud.views.factories import *
 
 __all__ = (
     'StatementCategoryListView',
@@ -31,11 +30,11 @@ StatementCategoryListView = list_view_factory(StatementCategory, _statementcateg
                                               StatementCategoryFilter, {},
                                               'CRUD/list/statementcategory.html')
 StatementCategoryUpdateView = update_view_factory(StatementCategory, StatementCategoryForm,
-                                                  'CRUD/update/index_layout.html')
+                                                  'CRUD/update/base.html')
 StatementCategoryCreateView = create_view_factory(StatementCategory, StatementCategoryForm,
-                                                  'CRUD/create/index_layout.html')
+                                                  'CRUD/create/base.html')
 StatementCategoryCreateAddAnotherView = create_add_another_view_factory(StatementCategory, StatementCategoryForm,
-                                                                        'CRUD/create/index_layout.html')
+                                                                        'CRUD/create/base.html')
 StatementCategoryDeleteView = delete_view_factory(StatementCategory)
 
 ################################################
@@ -49,9 +48,9 @@ StatementListView = list_view_factory(Statement, _statement_optimized_queryset,
                                       StatementFilter, _statement_filters_data,
                                       'CRUD/list/statement.html')
 StatementUpdateView = update_view_factory(Statement, StatementForm,
-                                          'CRUD/update/index_layout.html')
+                                          'CRUD/update/base.html')
 StatementCreateView = create_view_factory(Statement, StatementForm,
-                                          'CRUD/create/index_layout.html')
+                                          'CRUD/create/base.html')
 StatementCreateAddAnotherView = create_add_another_view_factory(Statement, StatementForm,
-                                                                'CRUD/create/index_layout.html')
+                                                                'CRUD/create/base.html')
 StatementDeleteView = delete_view_factory(Statement)
