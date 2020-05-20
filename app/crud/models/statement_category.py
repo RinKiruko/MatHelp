@@ -6,7 +6,7 @@ from crud.models.mixins import TemplateModelMetaInfoMixin
 
 class StatementCategory(TemplateModelMetaInfoMixin, models.Model):
     title = models.CharField(verbose_name='Название категории', max_length=50)
-    legal_number = models.CharField(verbose_name='Юридический номер', max_length=50, unique=True)
+    legal_number = models.CharField(verbose_name='Юридический номер', max_length=50)
     maximum_payment = models.DecimalField(verbose_name='Максимальная выплата', max_digits=7, decimal_places=2,
                                           blank=True, null=True)
     # TODO Replace with periodic payment

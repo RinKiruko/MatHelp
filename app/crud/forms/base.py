@@ -16,7 +16,7 @@ class BaseModelForm(forms.ModelForm):
             field_widget = field.widget
             field_widget.attrs.update({'tabindex': 1})
 
-            if field_widget.input_type == 'checkbox':
-                field_widget.attrs.update({'class': 'form-check-input'})
-            else:
+            if field_widget.input_type != 'checkbox':
+            #     field_widget.attrs.update({'class': 'form-check-input'})
+            # else:
                 field_widget.attrs.update({'class': 'form-control'})
