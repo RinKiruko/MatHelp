@@ -17,8 +17,6 @@ class Statement(TemplateModelMetaInfoMixin, models.Model):
     student_last_name = models.CharField(verbose_name='Фамилия', max_length=50)
     student_middle_name = models.CharField(verbose_name='Отчество', max_length=50, blank=True)
 
-    student_group = models.CharField(verbose_name='Группа', max_length=50)
-
     class Meta:
         verbose_name = "Заявление"
         verbose_name_plural = "Заявления"
