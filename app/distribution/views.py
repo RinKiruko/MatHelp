@@ -1,53 +1,68 @@
-import math
-import pickle
+import csv
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count, Q, Prefetch
+from django.http import HttpResponse
+from django.utils import timezone
 from django.views.generic import View
-from openpyxl import load_workbook
 
+from crud.models import Statement, StatementCategory
 from distribution.utils import get_criterion, normalize
 
 
-class Distribute(View):
-    def get(self, request, *args, **kwargs):
-        dataset = pickle.load(open('./datasets/datasets.pickle', 'rb'))
-        weights = pickle.load(open('./datasets/weights.pickle', 'rb'))
+class Distribute(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        budget = int(request.GET['budget'])
+        date = timezone.datetime(kwargs['year'], kwargs['month'], 1).date()
 
-        wb = load_workbook(filename="./datasets/test.xlsx")
-        ws = wb['Data']
+        categories = StatementCategory.objects.filter(
+            statements__application_date__year=date.year,
+            statements__application_date__month=date.month
+        ).annotate(
+            statements_count=Count(
+                'statements',
+                filter=(
+                        Q(statements__application_date__year=date.year) &
+                        Q(statements__application_date__month=date.month)
+                )
+            )
+        ).prefetch_related(
+            Prefetch(
+                'statements',
+                queryset=Statement.objects.filter(application_date__year=date.year, application_date__month=date.month)
+            )
+        )
 
-        payments = {row[0].value: row[1].value for row in ws.rows if row[0].value is not None}
-        budget = 407500
-        wb.close()
-
-        avg_proportion = {}
-        for category in weights:
-            sum_ = sum([math.pow(payment[4] / payment[5], 2) for payment in dataset if payment[0] == category])
-            len_ = len([payment for payment in dataset if payment[0] == category])
-            avg_proportion[category] = math.sqrt(sum_ / len_) if len_ > 0 else 0
-
-        rel_counts = {
-            category: count / sum(payments.values())
-            for category, count in payments.items()
-        }
-        rel_weights = {
-            category: weights[category] / sum([value for key, value in weights.items() if key in payments])
-            for category in payments
-        }
         test_metrics = {
             category: {
-                'count': normalize(rel_counts[category], rel_counts.values()),
-                'proportion': normalize(avg_proportion[category], avg_proportion.values()),
-                'weight': normalize(rel_weights[category], rel_weights.values())
-            } for category, count in payments.items() if count
+                'count': normalize(
+                    category.statements_count,
+                    [category.statements_count for category in categories]
+                ),
+                'weight': normalize(
+                    category.weight,
+                    [category.weight for category in categories]
+                )
+            } for category in categories
         }
 
         estimated = {
             category: get_criterion(test_metrics[category])
-            for category in payments
+            for category in categories
         }
 
         distributions = {
-            category: {
-                'received': budget * (estimated[category] / sum(estimated.values())),
-            } for category, count in payments.items()
+            category: budget * (estimated[category] / sum(estimated.values())) for category in categories
         }
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="distribution{date.year}{date.year}.csv"'
+
+        writer = csv.writer(response)
+        for category, category_budget in distributions.items():
+            writer.writerows([
+                [statement.student_data, category.title, "{:.2f}".format(category_budget / category.statements_count)]
+                for statement in category.statements.all()
+            ])
+
+        return response

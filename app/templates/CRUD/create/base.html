@@ -1,7 +1,7 @@
 {% extends "shared/index_layout.html" %}
 {% load static %}
 {% block content %}
-    <h2>{{ meta_context.create_header }}</h2>
+    <h2>{{ create_header }}</h2>
     <form action="{{ model_class.create_url }}" method="post" class="col-10 shadow rounded p-3">
         {% csrf_token %}
         <div class="col-10">
@@ -35,17 +35,17 @@
             <div class="col-auto">
                 <button class="btn btn-primary" id="saveButton" tabindex="1">Сохранить</button>
             </div>
-            <div class="col-auto">
-                <button class="btn btn-success" id="saveAndAddAnotherButton" role="button">Сохранить и добавить еще
-                </button>
-            </div>
+{#            <div class="col-auto">#}
+{#                <button class="btn btn-success" id="saveAndAddAnotherButton" role="button">Сохранить и добавить еще#}
+{#                </button>#}
+{#            </div>#}
         </div>
     </form>
 {% endblock %}
-{% block javascript %}
-    <script>
-        const saveUrl = '{{ meta_context.create_url }}';
-        const saveAndAddAnotherUrl = '{{ meta_context.create_add_another_url }}';
-    </script>
-    <script src="{% static "js/create_base.js" %}"></script>
-{% endblock %}
+{#{% block javascript %}#}
+{#    <script>#}
+{#        const saveUrl = '{{ create_url }}';#}
+{#        const saveAndAddAnotherUrl = '{{ create_add_another_url }}';#}
+{#    </script>#}
+{#    <script src="{% static "js/create_base.js" %}"></script>#}
+{#{% endblock %}#}

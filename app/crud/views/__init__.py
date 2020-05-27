@@ -7,13 +7,13 @@ __all__ = (
     'StatementCategoryListView',
     'StatementCategoryUpdateView',
     'StatementCategoryCreateView',
-    'StatementCategoryCreateAddAnotherView',
+    # 'StatementCategoryCreateAddAnotherView',
     'StatementCategoryDeleteView',
 
     'StatementListView',
     'StatementUpdateView',
     'StatementCreateView',
-    'StatementCreateAddAnotherView',
+    # 'StatementCreateAddAnotherView',
     'StatementDeleteView',
 )
 
@@ -33,8 +33,8 @@ StatementCategoryUpdateView = update_view_factory(StatementCategory, StatementCa
                                                   'CRUD/update/base.html')
 StatementCategoryCreateView = create_view_factory(StatementCategory, StatementCategoryForm,
                                                   'CRUD/create/base.html')
-StatementCategoryCreateAddAnotherView = create_add_another_view_factory(StatementCategory, StatementCategoryForm,
-                                                                        'CRUD/create/base.html')
+# StatementCategoryCreateAddAnotherView = create_add_another_view_factory(StatementCategory, StatementCategoryForm,
+#                                                                         'CRUD/create/base.html')
 StatementCategoryDeleteView = delete_view_factory(StatementCategory)
 
 ################################################
@@ -50,6 +50,6 @@ StatementUpdateView = update_view_factory(Statement, StatementForm,
                                           'CRUD/update/base.html')
 StatementCreateView = create_view_factory(Statement, StatementForm,
                                           'CRUD/create/base.html')
-StatementCreateAddAnotherView = create_add_another_view_factory(Statement, StatementForm,
-                                                                'CRUD/create/base.html')
+# StatementCreateAddAnotherView = create_add_another_view_factory(Statement, StatementForm,
+#                                                                 'CRUD/create/base.html')
 StatementDeleteView = delete_view_factory(Statement)

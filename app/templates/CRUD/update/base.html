@@ -1,8 +1,8 @@
 {% extends "shared/index_layout.html" %}
 {% load static %}
 {% block content %}
-    <h2>{{ meta_context.update_header }}</h2>
-    <form action="{{ meta_context.update_url }}" method="post" class="col-10 shadow rounded p-3">
+    <h2>{{ update_header }}</h2>
+    <form action="{{ object.update_url }}" method="post" class="col-10 shadow rounded p-3">
         {% csrf_token %}
 
         <div class="col-10">

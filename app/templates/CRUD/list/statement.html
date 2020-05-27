@@ -12,12 +12,8 @@
                             <label class="input-group-text" for="group-picker">Студент</label>
                         </div>
                     </div>
-                    <div class="col-5 input-group mb-3">
-                        <input type="text" class="form-control" name="group" placeholder="Название группы"
-                               aria-label="Поиск по группе" value="{{ request.GET.group }}">
-                        <div class="input-group-append">
-                            <label class="input-group-text" for="group-picker">Группа</label>
-                        </div>
+                    <div class="col-2">
+                        <a href="{% url 'crud:statement-list' %}" class="btn btn-block btn-secondary">Очистить</a>
                     </div>
                 </div>
                 <div class="row">
@@ -25,7 +21,7 @@
                         <select class="custom-select" id="inputCategorySelect" name="category">
                             {% for category_id, category_name in filter.form.fields.category.choices %}
                                 <option value="{{ category_id }}"
-                                        {% if category_id|stringformat:'i' == request.GET.group %}
+                                        {% if category_id|stringformat:'i' == request.GET.category %}
                                         selected{% endif %}>{{ category_name }}</option>
                             {% endfor %}
                         </select>
@@ -36,16 +32,14 @@
                     <div class="col-2">
                         <input type="submit" class="btn btn-block btn-primary mr-2" value="Найти">
                     </div>
-                    <div class="col-2">
-                        <a href="{% url 'crud:statement-list' %}" class="btn btn-block btn-secondary">Очистить</a>
-                    </div>
+
                 </div>
                 <div class="row">
                 </div>
             </div>
             <div class="col">
                 <div class="row justify-content-center">
-                    <a href="{{ meta_context.create_url }}" class="btn btn-success">
+                    <a href="{{ create_url }}" class="btn btn-success">
                         <img src="{% static 'images/icons/add.png' %}" width="40px" height="40px" alt="">
                     </a>
                 </div>
@@ -60,10 +54,10 @@
                 <h4>
                     {{ object.student_first_name }} {{ object.student_last_name }} от {{ object.application_date }}
                 </h4>
-                <div class="card-text">
-                    <a href="{% url 'crud:statement-list' %}?group={{ object.student_group }}"
-                       class="student-group btn btn-outline-info">#{{ object.student_group }}</a>
-                </div>
+{#                <div class="card-text">#}
+{#                    <a href="{% url 'crud:statement-list' %}?group={{ object.student_group }}"#}
+{#                       class="student-group btn btn-outline-info">#{{ object.student_group }}</a>#}
+{#                </div>#}
             </div>
         </div>
     </div>

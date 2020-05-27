@@ -11,7 +11,7 @@ class Statement(TemplateModelMetaInfoMixin, models.Model):
     statement_category = models.ForeignKey('crud.StatementCategory', related_name='statements',
                                            on_delete=models.PROTECT, verbose_name='Категория')
 
-    application_date = models.DateField(verbose_name='Дата Подачи', default=timezone.now)
+    application_date = models.DateField(verbose_name='Дата Подачи')
 
     student_first_name = models.CharField(verbose_name='Имя', max_length=50)
     student_last_name = models.CharField(verbose_name='Фамилия', max_length=50)
@@ -24,6 +24,7 @@ class Statement(TemplateModelMetaInfoMixin, models.Model):
     ############################
     # Template meta settings ###
     ############################
+
     update_header = 'Изменить данные заявления'
     create_header = 'Добавить заявление'
     list_header = 'Список заявлений'
@@ -44,6 +45,12 @@ class Statement(TemplateModelMetaInfoMixin, models.Model):
     @property
     def create_url(self):
         return reverse('crud:statement-create')
+
+    ############################
+
+    @property
+    def student_data(self):
+        return f'{self.student_first_name} {self.student_last_name}'
 
     def __str__(self):
         return f'{self.student_first_name} {self.student_last_name} от {self.application_date.strftime("%d.%m.%Y")}'

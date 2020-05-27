@@ -9,12 +9,18 @@ class StatementCategory(TemplateModelMetaInfoMixin, models.Model):
     legal_number = models.CharField(verbose_name='Юридический номер', max_length=50)
     maximum_payment = models.DecimalField(verbose_name='Максимальная выплата', max_digits=7, decimal_places=2,
                                           blank=True, null=True)
-    # TODO Replace with periodic payment
-    necessarily_paying = models.BooleanField(verbose_name='Обязательна к выплате', default=False)
-    
+
+    month_payment = models.BooleanField(verbose_name='Ежемесячная выплата', default=False)
     weight = models.FloatField(verbose_name='Приоритет', default=1.0)
 
+    class Meta:
+        verbose_name = 'Категория заявления'
+        verbose_name_plural = 'Категории заявлений'
+
+    ############################
     # Template meta settings ###
+    ############################
+
     update_header = 'Изменить данные о категории'
     create_header = 'Добавить категорию выплат'
     list_header = 'Список категорий'
@@ -32,15 +38,11 @@ class StatementCategory(TemplateModelMetaInfoMixin, models.Model):
     def delete_url(self):
         return reverse('crud:statementcategory-delete', kwargs={'id': self.id})
 
+    ############################
+
     @property
     def create_url(self):
         return reverse('crud:statementcategory-create')
-
-    ############################
-
-    class Meta:
-        verbose_name = 'Категория заявления'
-        verbose_name_plural = 'Категории заявлений'
 
     def __str__(self):
         return f'{self.title}'

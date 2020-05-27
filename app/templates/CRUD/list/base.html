@@ -1,7 +1,7 @@
 {% extends "shared/index_layout.html" %}
 {% block content %}
     <div class="main-content">
-        <h2>{{ meta_context.list_header }}</h2>
+        <h2>{{ list_header }}</h2>
         {% block filters %}
         {% endblock %}
         <ul class="list-group">
@@ -10,7 +10,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content col-auto">
                             <div class="modal-header">
-                                <h5 class="modal-title">{{ meta_context.delete_modal_title }}</h5>
+                                <h5 class="modal-title">{{ delete_modal_title }}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -21,7 +21,7 @@
                                       method="post">{% csrf_token %}</form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
                                 <button form="delete-{{ object.id }}-form" type="submit" class="btn btn-danger">
                                     Удалить
                                 </button>

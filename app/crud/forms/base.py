@@ -17,6 +17,9 @@ class BaseModelForm(forms.ModelForm):
             field_widget.attrs.update({'tabindex': 1})
 
             if field_widget.input_type != 'checkbox':
-            #     field_widget.attrs.update({'class': 'form-check-input'})
-            # else:
                 field_widget.attrs.update({'class': 'form-control'})
+
+    def _post_clean(self):
+        super()._post_clean()
+        for error in self.errors:
+            self.fields[error].widget.attrs['class'] += ' is-invalid'
