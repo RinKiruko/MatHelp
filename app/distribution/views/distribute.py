@@ -11,7 +11,7 @@ from distribution.utils import get_criterion, normalize
 
 
 class Distribute(LoginRequiredMixin, View):
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         budget = int(request.GET['budget'])
         date = timezone.datetime(kwargs['year'], kwargs['month'], 1).date()
 
@@ -51,7 +51,7 @@ class Distribute(LoginRequiredMixin, View):
             for category in categories
         }
 
-        distributions = {
+        distribution = {
             category: budget * (estimated[category] / sum(estimated.values())) for category in categories
         }
 
@@ -59,7 +59,7 @@ class Distribute(LoginRequiredMixin, View):
         response['Content-Disposition'] = f'attachment; filename="distribution{date.year}{date.year}.csv"'
 
         writer = csv.writer(response)
-        for category, category_budget in distributions.items():
+        for category, category_budget in distribution.items():
             writer.writerows([
                 [statement.student_data, category.title, "{:.2f}".format(category_budget / category.statements_count)]
                 for statement in category.statements.all()

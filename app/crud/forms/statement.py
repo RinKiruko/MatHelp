@@ -1,8 +1,8 @@
-from crud.forms.base import BaseModelForm
+from general.forms.base import BaseBoostrapForm
 from crud.models import Statement
 
 
-class StatementForm(BaseModelForm):
+class StatementForm(BaseBoostrapForm):
     class Meta:
         model = Statement
         exclude = ('',)
