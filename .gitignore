@@ -3,4 +3,5 @@
 ./*.ddl
 ./*.svg
 ./*.uml
-./datasets
+./datasets/
+./.ipynb_checkpoints/
