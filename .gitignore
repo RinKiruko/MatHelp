@@ -5,3 +5,4 @@
 ./*.uml
 ./datasets/
 ./.ipynb_checkpoints/
+./.idea/
