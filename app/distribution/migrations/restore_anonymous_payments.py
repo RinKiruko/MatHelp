@@ -24,7 +24,9 @@ def restore_anonymous_payments(apps, schema_editor):
         except StatementCategory.DoesNotExist:
             category = StatementCategory.objects.create(title=category, legal_number=category)
             category.save()
-        
+        except StatementCategory.MultipleObjectsReturned:
+            category = StatementCategory.objects.filter(legal_number__iexact=category).first()
+
         payments += [
             Payment(
                 amount=Decimal(amount),

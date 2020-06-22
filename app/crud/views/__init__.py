@@ -29,9 +29,9 @@ _statementcategory_optimized_queryset = StatementCategory.objects.prefetch_relat
 StatementCategoryListView = list_view_factory(StatementCategory, _statementcategory_optimized_queryset,
                                               StatementCategoryFilter, {},
                                               'CRUD/list/statementcategory.html')
-StatementCategoryUpdateView = update_view_factory(StatementCategory, StatementCategoryForm,
+StatementCategoryUpdateView = update_view_factory(StatementCategory, StatementCategoryFormMixin,
                                                   'CRUD/update/base.html')
-StatementCategoryCreateView = create_view_factory(StatementCategory, StatementCategoryForm,
+StatementCategoryCreateView = create_view_factory(StatementCategory, StatementCategoryFormMixin,
                                                   'CRUD/create/base.html')
 # StatementCategoryCreateAddAnotherView = create_add_another_view_factory(StatementCategory, StatementCategoryForm,
 #                                                                         'CRUD/create/base.html')
@@ -46,9 +46,9 @@ _statement_filters_data = {}
 StatementListView = list_view_factory(Statement, _statement_optimized_queryset,
                                       StatementFilter, _statement_filters_data,
                                       'CRUD/list/statement.html')
-StatementUpdateView = update_view_factory(Statement, StatementForm,
+StatementUpdateView = update_view_factory(Statement, StatementFormMixin,
                                           'CRUD/update/base.html')
-StatementCreateView = create_view_factory(Statement, StatementForm,
+StatementCreateView = create_view_factory(Statement, StatementFormMixin,
                                           'CRUD/create/base.html')
 # StatementCreateAddAnotherView = create_add_another_view_factory(Statement, StatementForm,
 #                                                                 'CRUD/create/base.html')

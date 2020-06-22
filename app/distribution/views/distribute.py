@@ -3,33 +3,41 @@ import csv
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Q, Prefetch
 from django.http import HttpResponse
-from django.utils import timezone
+from django.shortcuts import render
 from django.views.generic import View
 
 from crud.models import Statement, StatementCategory
+from distribution.forms import settings_form_factory
 from distribution.utils import get_criterion, normalize
 
 
 class Distribute(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        budget = int(request.GET['budget'])
-        date = timezone.datetime(kwargs['year'], kwargs['month'], 1).date()
+        form_class = settings_form_factory()
+        form = form_class(data=request.GET)
+        if not form.is_valid():
+            return render(request, 'distribution/settings.html', {'form': form})
+
+        distribution_year = form.cleaned_data.pop('distribution_year')
+        distribution_month = form.cleaned_data.pop('distribution_month')
+        budget = form.cleaned_data.pop('budget')
 
         categories = StatementCategory.objects.filter(
-            statements__application_date__year=date.year,
-            statements__application_date__month=date.month
+            statements__application_date__year=distribution_year,
+            statements__application_date__month=distribution_month
         ).annotate(
             statements_count=Count(
                 'statements',
                 filter=(
-                        Q(statements__application_date__year=date.year) &
-                        Q(statements__application_date__month=date.month)
+                        Q(statements__application_date__year=distribution_year) &
+                        Q(statements__application_date__month=distribution_month)
                 )
             )
         ).prefetch_related(
             Prefetch(
                 'statements',
-                queryset=Statement.objects.filter(application_date__year=date.year, application_date__month=date.month)
+                queryset=Statement.objects.filter(application_date__year=distribution_year,
+                                                  application_date__month=distribution_month)
             )
         )
 
@@ -56,7 +64,8 @@ class Distribute(LoginRequiredMixin, View):
         }
 
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = f'attachment; filename="distribution{date.year}{date.year}.csv"'
+        response['Content-Disposition'] = 'attachment; filename="distribution{}{}.csv"'.format(distribution_year,
+                                                                                               distribution_month)
 
         writer = csv.writer(response)
         for category, category_budget in distribution.items():

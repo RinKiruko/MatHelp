@@ -1,5 +1,5 @@
-from .base import BaseBoostrapForm
+from .base import BaseBoostrapFormMixin
 
 __all__ = [
-    'BaseBoostrapForm',
+    'BaseBoostrapFormMixin',
 ]

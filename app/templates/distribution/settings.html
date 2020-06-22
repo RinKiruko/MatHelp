@@ -1,49 +1,47 @@
 {% extends "shared/index_layout.html" %}
 {% block content %}
-    {{ form }}
+        <form action="{% url 'distribution:distribute' %}" method="get" class="col-10 shadow rounded p-3">
+            <div class="col-10">
+                {% if form.non_field_errors %}
+                    <div class="col-auto">
+                        {% for error in form.non_field_errors %}
+                            <div class="row alert alert-danger">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
 
-    {#    <form action="{{ model_class.create_url }}" method="post" class="col-10 shadow rounded p-3">#}
-    {#        {% csrf_token %}#}
-    {#        <div class="col-10">#}
-    {#            {% if form.non_field_errors %}#}
-    {#                <div class="col-auto">#}
-    {#                    {% for error in form.non_field_errors %}#}
-    {#                        <div class="row alert alert-danger">#}
-    {#                            {{ error }}#}
-    {#                        </div>#}
-    {#                    {% endfor %}#}
-    {#                </div>#}
-    {#            {% endif %}#}
-    {##}
-    {#            {% for field in form %}#}
-    {#                <div class="form-group row">#}
-    {#                    <label class="col-3 col-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>#}
-    {#                    <div class="col-7 mb-3">#}
-    {#                        {{ field }}#}
-    {#                        {% if field.errors %}#}
-    {#                            {% for error in field.errors %}#}
-    {#                                <div class="invalid-feedback">#}
-    {#                                    {{ error }}#}
-    {#                                </div>#}
-    {#                            {% endfor %}#}
-    {#                        {% endif %}#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            {% endfor %}#}
-    {#        </div>#}
-    {#        <div class="row pl-4">#}
-    {#            <div class="col-auto">#}
-    {#                <button class="btn btn-primary" id="saveButton" tabindex="1">Сохранить</button>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </form>#}
-
-
+                {% for field in form %}
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <div class="col-7 mb-3">
+                            {{ field }}
+                            {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row pl-4">
+                <div class="col-auto">
+                    <button class="btn btn-primary" id="saveButton" tabindex="1">Создать распределение</button>
+                </div>
+            </div>
+        </form>
 {% endblock %}
 {% block javascript %}
     <script defer>
         $('input[name="distribution_period"]').datepicker({
-            format: "dd/mm/yyyy",
+            format: "dd.mm.yyyy",
             startView: 1,
             maxViewMode: 2,
             clearBtn: true,

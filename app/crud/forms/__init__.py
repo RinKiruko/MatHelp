@@ -1,7 +1,7 @@
-from .statement import StatementForm
-from .statement_category import StatementCategoryForm
+from .statement import StatementFormMixin
+from .statement_category import StatementCategoryFormMixin
 
 __all__ = [
-    'StatementCategoryForm',
-    'StatementForm',
+    'StatementCategoryFormMixin',
+    'StatementFormMixin',
 ]

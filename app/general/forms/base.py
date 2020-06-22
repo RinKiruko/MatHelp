@@ -1,9 +1,9 @@
 from django import forms
 
 
-class BaseBoostrapForm(forms.Form):
+class BaseBoostrapFormMixin:
     def __init__(self, **kwargs):
-        super().__init__(kwargs)
+        super().__init__(**kwargs)
 
         for _, field in self.fields.items():
             field_widget = field.widget
@@ -14,8 +14,10 @@ class BaseBoostrapForm(forms.Form):
 
     def _post_clean(self):
         super()._post_clean()
-        for error in self.errors:
-            if 'class' in self.fields[error].widget.attrs:
-                self.fields[error].widget.attrs['class'] += ' is-invalid'
-            else:
-                self.fields[error].widget.attrs['class'] = 'is-invalid'
+
+        if self.cleaned_data:
+            for error in filter(lambda err: err != '__all__', self.errors):
+                if 'class' in self.fields[error].widget.attrs:
+                    self.fields[error].widget.attrs['class'] += ' is-invalid'
+                else:
+                    self.fields[error].widget.attrs['class'] = 'is-invalid'

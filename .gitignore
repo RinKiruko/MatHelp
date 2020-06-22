@@ -3,6 +3,7 @@
 ./*.ddl
 ./*.svg
 ./*.uml
-./datasets/
-./.ipynb_checkpoints/
-./.idea/
+datasets/
+.ipynb_checkpoints/
+.idea/
+dumps/

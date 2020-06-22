@@ -49,6 +49,10 @@ class Statement(TemplateModelMetaInfoMixin, models.Model):
     ############################
 
     @property
+    def payed(self):
+        return self.payment is None
+
+    @property
     def student_data(self):
         return f'{self.student_first_name} {self.student_last_name}'
 

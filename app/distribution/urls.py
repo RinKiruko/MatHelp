@@ -5,5 +5,5 @@ from distribution.views import *
 app_name = 'distribution'
 urlpatterns = [
     path('settings/', Settings.as_view(), name='settings'),
-    path('distribute/<int:year>/<int:month>/', Distribute.as_view(), name='distribute'),
+    path('distribute/', Distribute.as_view(), name='distribute'),
 ]
