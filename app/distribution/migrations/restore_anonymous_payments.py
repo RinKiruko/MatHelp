@@ -41,7 +41,7 @@ def restore_anonymous_payments(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('distribution', '0001_auto_20200515_1520'),
+        ('distribution', '0001_initial'),
     ]
 
     operations = [
