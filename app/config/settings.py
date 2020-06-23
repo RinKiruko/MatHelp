@@ -173,5 +173,3 @@ INITIAL_DATASETS_PATH = os.path.join(BASE_DIR, 'distribution/static/datasets.pic
 INITIAL_WEIGHTS_PATH = os.path.join(BASE_DIR, 'crud/static/weights.pickle')
 
 django_heroku.settings(locals())
-
-print('hello')
