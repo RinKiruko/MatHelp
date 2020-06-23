@@ -1,2 +1,3 @@
 web: gunicorn config:wsgi
-web: gunicorn mathelp:app --preload
+web: gunicorn crud:app --preload
+web: gunicorn distribution:app --preoload
