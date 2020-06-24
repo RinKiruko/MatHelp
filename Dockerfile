@@ -4,10 +4,10 @@ MAINTAINER "daniktarasov@gmail.com"
 
 EXPOSE 8000
 
-RUN ls -l
+COPY requirements.txt /app/requirements.txt
 
-COPY ./ /app
+RUN pip install -r /app/requirements.txt
 
-RUN pip install -r requirements.txt
+COPY ./app /app
 
 RUN python /app/manage.py collectstatic
