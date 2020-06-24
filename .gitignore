@@ -4,6 +4,7 @@
 ./*.svg
 ./*.uml
 datasets/
+./www/
 .ipynb_checkpoints/
 .idea/
 dumps/
