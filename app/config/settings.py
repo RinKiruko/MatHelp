@@ -165,5 +165,5 @@ if DEBUG is True:
 INITIAL_DATASETS_PATH = os.path.join(BASE_DIR, 'distribution/static/datasets.pickle')
 INITIAL_WEIGHTS_PATH = os.path.join(BASE_DIR, 'crud/static/weights.pickle')
 
-if os.environ.get("HEROKU", ''):
+if os.environ.get("HEROKU", '') == 'True':
     django_heroku.settings(locals())
