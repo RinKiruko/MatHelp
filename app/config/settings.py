@@ -72,10 +72,10 @@ DATABASES['default'] = dj_database_url.config()
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'crud.User'
-
 LOGIN_REDIRECT_URL = reverse_lazy('crud:statement-list')
 LOGOUT_REDIRECT_URL = reverse_lazy('login')
+
+AUTH_USER_MODEL = 'crud.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -91,7 +91,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 sentry_sdk.init(
     dsn=os.environ.get('SENTRY_DSN', ''),
@@ -131,7 +130,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -146,7 +144,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'www/media/')
-
 
 INTERNAL_IPS = ('127.0.0.1', 'localhost', '0.0.0.0')
 
@@ -167,15 +164,14 @@ if DEBUG is True:
         'debug_toolbar.panels.profiling.ProfilingPanel',
     ]
 
-    RENDER_PANELS = True
+RENDER_PANELS = True
 
-    DEBUG_TOOLBAR_CONFIG = {
-        'SHOW_TOOLBAR_CALLBACK': lambda request: True
-    }
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: True
+}
 
 INITIAL_DATASETS_PATH = os.path.join(BASE_DIR, 'distribution/static/datasets.pickle')
 INITIAL_WEIGHTS_PATH = os.path.join(BASE_DIR, 'crud/static/weights.pickle')
 
 if os.environ.get("HEROKU", '') == 'True':
     django_heroku.settings(locals())
-

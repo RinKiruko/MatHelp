@@ -32,7 +32,6 @@ class SettingsValidationMixin:
 
 
 def settings_form_factory(categories: QuerySet = StatementCategory.objects.all()):
-    min_year = Statement.objects.all().order_by('application_date').first().application_date.year
     today = timezone.now().date()
 
     fields = {
@@ -41,8 +40,6 @@ def settings_form_factory(categories: QuerySet = StatementCategory.objects.all()
             required=True,
             label='Год',
             initial=today.year,
-            min_value=min_year,
-            max_value=today.year + 10,
         ),
         'distribution_month': forms.TypedChoiceField(
             required=True,

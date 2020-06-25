@@ -22,6 +22,13 @@ class Distribute(LoginRequiredMixin, View):
         distribution_month = form.cleaned_data.pop('distribution_month')
         budget = form.cleaned_data.pop('budget')
 
+        actual_statements = Statement.objects.filter(
+            application_date__year=distribution_year,
+            application_date__month=distribution_month
+        )
+        if not actual_statements.exists():
+            return render(request, 'distribution/empty_statements.html')
+
         categories = StatementCategory.objects.filter(
             statements__application_date__year=distribution_year,
             statements__application_date__month=distribution_month
