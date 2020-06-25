@@ -12,7 +12,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '2j+7+ephljf)-#%i-wbq*3oqpsz7#ck&opvogoebrp+69t@3f2'
 
-DEBUG = os.getenv('DEV', '') == 'True'
+# DEBUG = os.getenv('DEV', '') == 'True'
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -143,11 +144,11 @@ STATICFILES_FINDERS = (
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'www/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 INTERNAL_IPS = ('127.0.0.1', 'localhost', '0.0.0.0')
 
-if DEBUG is True:
+if DEBUG:
     DEBUG_TOOLBAR_PANELS = [
         'debug_toolbar.panels.versions.VersionsPanel',
         'debug_toolbar.panels.timer.TimerPanel',
@@ -164,11 +165,11 @@ if DEBUG is True:
         'debug_toolbar.panels.profiling.ProfilingPanel',
     ]
 
-RENDER_PANELS = True
+    RENDER_PANELS = True
 
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': lambda request: True
-}
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': lambda request: True
+    }
 
 INITIAL_DATASETS_PATH = os.path.join(BASE_DIR, 'distribution/static/datasets.pickle')
 INITIAL_WEIGHTS_PATH = os.path.join(BASE_DIR, 'crud/static/weights.pickle')
