@@ -33,9 +33,6 @@ class SettingsValidationMixin:
 
 def settings_form_factory(categories: QuerySet = StatementCategory.objects.all()):
     today = timezone.now().date()
-    statements = Statement.objects.all().order_by('application_date')
-
-    min_year = statements.first().application_date.year if statements.exists() else today.year
 
     fields = {
         'budget': forms.FloatField(required=True, label='Размер бюджета', min_value=1000),
@@ -43,8 +40,6 @@ def settings_form_factory(categories: QuerySet = StatementCategory.objects.all()
             required=True,
             label='Год',
             initial=today.year,
-            min_value=min_year,
-            max_value=today.year + 10,
         ),
         'distribution_month': forms.TypedChoiceField(
             required=True,
