@@ -2,8 +2,11 @@ import os
 
 import dj_database_url
 import django_heroku
+import sentry_sdk
 from django.conf.global_settings import DATABASES
+from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse_lazy
+from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -89,6 +92,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+sentry_sdk.init(
+    dsn=os.environ.get('SENTRY_DSN', ''),
+    integrations=[DjangoIntegration()],
+
+    send_default_pii=True
+)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -167,3 +178,4 @@ INITIAL_WEIGHTS_PATH = os.path.join(BASE_DIR, 'crud/static/weights.pickle')
 
 if os.environ.get("HEROKU", '') == 'True':
     django_heroku.settings(locals())
+
